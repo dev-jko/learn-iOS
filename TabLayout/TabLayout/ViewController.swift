@@ -12,7 +12,12 @@ class ViewController: UIViewController {
 
     /* MARK: UI */
     
-    let tabBar: TabLayout = TabLayout()
+    lazy var tabBar: TabLayout = {
+        let tab = TabLayout()
+        tab.backgroundColor = .green
+        tab.translatesAutoresizingMaskIntoConstraints = false
+        return tab
+    }()
     
     let titles = ["home", "hot", "new", "abc", "adsa", "1231", "breb"]
     
@@ -20,12 +25,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.addSubview(self.tabBar)
-        
-        tabBar.translatesAutoresizingMaskIntoConstraints = false
         tabBar.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
-        tabBar.heightAnchor.constraint(greaterThanOrEqualToConstant: 150).isActive = true
-        tabBar.heightAnchor.constraint(lessThanOrEqualToConstant: 250).isActive = true
-        tabBar.backgroundColor = .green
+        tabBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        tabBar.heightAnchor.constraint(equalToConstant: 80).isActive = true
         tabBar.setTitles(titles: titles)
     }
 

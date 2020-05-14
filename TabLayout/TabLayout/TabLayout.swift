@@ -17,24 +17,26 @@ class TabLayout: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.backgroundColor = .clear
         cv.showsHorizontalScrollIndicator = false
         cv.dataSource = self
         cv.delegate = self
         cv.register(TabTitleCell.self, forCellWithReuseIdentifier: TabTitleCell.identifier)
+        cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
     }()
+    
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        
-        
         addSubview(collectionView)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1).isActive = true
         collectionView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1).isActive = true
-        collectionView.backgroundColor = self.backgroundColor
+        
+        
+        
     }
     
     required init?(coder: NSCoder) {
@@ -63,10 +65,6 @@ extension TabLayout: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TabTitleCell.identifier, for: indexPath) as! TabTitleCell
         cell.textLabel.text = tabTitles[indexPath.row]
-        cell.textLabel.textColor = .black
-        cell.textLabel.adjustsFontSizeToFitWidth = true
-        cell.backgroundColor = .blue
-        
         return cell as UICollectionViewCell
     }
     
@@ -74,12 +72,13 @@ extension TabLayout: UICollectionViewDataSource {
 
 extension TabLayout: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 100, height: 80)
+        return CGSize(width: 100, height: 65)
     }
 }
 
 extension TabLayout: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(tabTitles[indexPath.row])
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TabTitleCell.identifier, for: indexPath) as! TabTitleCell
+//        cell.textLabel.textColor = .blue
     }
 }
